@@ -2,15 +2,24 @@
 
 {% block content %}
 	<div class="post">
-		{% if post.published_date %}
-			<div class="date">
-				{{ post.published_date }}
+		<div class="content container">
+			<div class="row">
+				<div class="col-md-8">
+					{% if post.published_date %}
+						<div class="date">
+							{{ post.published_date }}
+						</div>
+					{% endif %}
+					<h1>{{ post.title }}</h1>
+					<p align="justify">{{ post.text|linebreaksbr }}</p>
+					{% if user.is_authenticated %}
+						<a class="btn btn-default" href="{% url 'post_edit' pk=post.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
+					{% endif %}
+				</div>
+				<div class="col-md-4">
+					<img src="{{post.image}}" class="img-fluid" width="317" height="475">
+				</div>
 			</div>
-		{% endif %}
-		{% if user.is_authenticated %}
-			<a class="btn btn-default" href="{% url 'post_edit' pk=post.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
-		{% endif %}
-		<h1>{{ post.title }}</h1>
-		<p>{{ post.text|linebreaksbr }}</p>
+		</div>
 	</div>
 {% endblock %}
